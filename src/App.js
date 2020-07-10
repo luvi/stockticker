@@ -15,24 +15,26 @@ export default class App extends Component {
       regularMarketVolume: 0
     }
   }
-  
-  componentDidMount(){
 
+  update = () => {
     fetch('https://cors-anywhere.herokuapp.com/'+url)
       .then((response) => response.json())
       .then((data) => {
 
         let obj = data.quoteResponse.result[0]
-        console.log(obj)
         this.setState({stockPrice: obj.regularMarketPrice})
         this.setState({marketDayHigh: obj.regularMarketDayHigh})
         this.setState({fiftyTwoWeekHigh: obj.fiftyTwoWeekHigh})
         this.setState({regularMarketVolume: obj.regularMarketVolume})
-        
-       
-     
-      
+   
       });
+
+  }
+  
+  componentDidMount(){
+
+    setInterval(this.update.bind(this), 3000);
+    
   }
 
   render(){
