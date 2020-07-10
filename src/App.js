@@ -1,26 +1,49 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from "react";
 import './App.css';
 
-function App() {
+let STOCK = "TSLA";
+var url = `https://query1.finance.yahoo.com/v7/finance/quote?lang=en-US&region=US&corsDomain=finance.yahoo.com&symbols=${STOCK}`;
+
+export default class App extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = { 
+      stockPrice: 0,
+      marketDayHigh: 0,
+      fiftyTwoWeekHigh: 0,
+      regularMarketVolume: 0
+    }
+  }
+  
+  componentDidMount(){
+
+    fetch('https://cors-anywhere.herokuapp.com/'+url)
+      .then((response) => response.json())
+      .then((data) => {
+
+        let obj = data.quoteResponse.result[0]
+        console.log(obj)
+        this.setState({stockPrice: obj.regularMarketPrice})
+        this.setState({marketDayHigh: obj.regularMarketDayHigh})
+        this.setState({fiftyTwoWeekHigh: obj.fiftyTwoWeekHigh})
+        this.setState({regularMarketVolume: obj.regularMarketVolume})
+        
+       
+     
+      
+      });
+  }
+
+  render(){
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>TSLA Stock Price</h1>
+      <h2>{this.state.stockPrice}</h2>
+      <p>Market Day High: {this.state.marketDayHigh}</p>
+      <p>52 Week High: {this.state.fiftyTwoWeekHigh}</p>
+      <p>Volume: {this.state.regularMarketVolume}</p>
     </div>
   );
+  }
 }
-
-export default App;
