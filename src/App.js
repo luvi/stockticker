@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 
+
 let STOCK = "TSLA";
 var url = `/v7/finance/quote?lang=en-US&region=US&corsDomain=finance.yahoo.com&symbols=${STOCK}`;
 
@@ -35,6 +36,7 @@ export default class App extends Component {
       postMarketPrice: 0,
     };
   }
+
 
   update = () => {
     fetch(url)
