@@ -77,9 +77,13 @@ export default class App extends Component {
       });
   };
 
+  timer = 10000;
+
   componentDidMount() {
-    //setInterval(this.update.bind(this), 10000);
-    this.update()
+
+    this.update() // update immediately once open
+    setInterval(this.update.bind(this), this.timer);
+
   }
 
   render() {
