@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
+import milify from 'millify';
 
 
 let STOCK = "TSLA";
@@ -107,7 +108,7 @@ export default class App extends Component {
               </th>
               <td>
                 <div style={stockStatsStyle}>
-                  {this.state.regularMarketChangePercent}%
+                  {this.state.regularMarketChangePercent.toFixed(2)}%
                 </div>
               </td>
             </tr>
@@ -122,9 +123,9 @@ export default class App extends Component {
         </table>
 
         <p>
-          Market Day High: {this.state.marketDayHigh} 52 Week High:{" "}
-          {this.state.fiftyTwoWeekHigh} Volume: {this.state.regularMarketVolume}{" "}
-          MarketCap: {this.state.marketCap}
+          Market Day High: {this.state.marketDayHigh.toFixed(2)} 52 Week High:{" "}
+          {this.state.fiftyTwoWeekHigh} Volume: {milify(this.state.regularMarketVolume)}{" "}
+          MarketCap: {milify(this.state.marketCap)}
         </p>
 
         <p>Market is {this.state.marketState}</p>
@@ -135,8 +136,8 @@ export default class App extends Component {
               
                 <h3 style={stylePricePostMarket}>${this.state.postMarketPrice} </h3>{" "}
               
-              ${this.state.postMarketChange}{" "}
-              {this.state.postMarketChangePercent}%
+              ${this.state.postMarketChange.toFixed(2)}{" "}
+              {this.state.postMarketChangePercent.toFixed(2)}%
             </p>
           </div>
         )}
