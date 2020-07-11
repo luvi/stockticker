@@ -39,9 +39,11 @@ export default class App extends Component {
   update = () => {
     fetch(url)
       .then((response) => {
+        console.log(response)
         return response.json();
       })
       .then((data) => {
+       
         let obj = data.quoteResponse.result[0];
         console.log(obj);
 
