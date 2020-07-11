@@ -39,41 +39,40 @@ export default class App extends Component {
   update = () => {
     fetch(url)
       .then((response) => {
-        console.log(response.json())
-        return response.json();
-      })
-      .then((data) => {
-       
-        let obj = data.quoteResponse.result[0];
-        console.log(obj);
+        return response.text();
+      }).then((data) => {
+        console.log(data)
 
-        let {
-          regularMarketPrice,
-          regularMarketDayHigh,
-          fiftyTwoWeekHigh,
-          regularMarketVolume,
-          regularMarketChange,
-          regularMarketChangePercent,
-          marketState,
-          marketCap,
-          postMarketChange,
-          postMarketChangePercent,
-          postMarketPrice,
-        } = obj;
+        // let obj = data.quoteResponse.result[0];
+        // console.log(obj);
 
-        this.setState({ stockPrice: regularMarketPrice });
-        this.setState({ marketDayHigh: regularMarketDayHigh });
-        this.setState({ fiftyTwoWeekHigh: fiftyTwoWeekHigh });
-        this.setState({ regularMarketVolume: regularMarketVolume });
-        this.setState({ regularMarketChange: regularMarketChange });
-        this.setState({
-          regularMarketChangePercent: regularMarketChangePercent,
-          marketState: marketState,
-          marketCap: marketCap,
-          postMarketChange,
-          postMarketChangePercent,
-          postMarketPrice,
-        });
+        // let {
+        //   regularMarketPrice,
+        //   regularMarketDayHigh,
+        //   fiftyTwoWeekHigh,
+        //   regularMarketVolume,
+        //   regularMarketChange,
+        //   regularMarketChangePercent,
+        //   marketState,
+        //   marketCap,
+        //   postMarketChange,
+        //   postMarketChangePercent,
+        //   postMarketPrice,
+        // } = obj;
+
+        // this.setState({ stockPrice: regularMarketPrice });
+        // this.setState({ marketDayHigh: regularMarketDayHigh });
+        // this.setState({ fiftyTwoWeekHigh: fiftyTwoWeekHigh });
+        // this.setState({ regularMarketVolume: regularMarketVolume });
+        // this.setState({ regularMarketChange: regularMarketChange });
+        // this.setState({
+        //   regularMarketChangePercent: regularMarketChangePercent,
+        //   marketState: marketState,
+        //   marketCap: marketCap,
+        //   postMarketChange,
+        //   postMarketChangePercent,
+        //   postMarketPrice,
+        // });
       });
   };
 
