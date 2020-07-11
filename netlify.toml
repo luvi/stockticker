@@ -1,6 +1,5 @@
 [build]
-  command = "npm run build && cd functions/fetchStock/node_modules/node-fetch && npm install"
-  functions = "functions"
+  command = "npm run build"
   publish = ""
 
 # The following redirect is intended for use with most SPAs that handle
