@@ -5,11 +5,18 @@ let STOCK = "TSLA";
 var url = `/v7/finance/quote?lang=en-US&region=US&corsDomain=finance.yahoo.com&symbols=${STOCK}`;
 
 const stockPriceStyle = {
-  fontSize: "200px"
-}
+  fontSize: "200px",
+};
 const stockStatsStyle = {
-  fontSize: "20px"
-}
+  fontSize: "20px",
+};
+const marketPriceStylePositive = {
+  color: "green",
+};
+
+const marketPriceStyleNegative = {
+  color: "red",
+};
 
 export default class App extends Component {
   constructor(props) {
@@ -25,7 +32,7 @@ export default class App extends Component {
       marketCap: 0,
       postMarketChange: 0,
       postMarketChangePercent: 0,
-      postMarketPrice: 0
+      postMarketPrice: 0,
     };
   }
 
@@ -38,19 +45,33 @@ export default class App extends Component {
         let obj = data.quoteResponse.result[0];
         console.log(obj);
 
-        let {regularMarketPrice,regularMarketDayHigh, fiftyTwoWeekHigh,
-          regularMarketVolume,regularMarketChange,regularMarketChangePercent, marketState, marketCap,postMarketChange,postMarketChangePercent,postMarketPrice } = obj;
-        
+        let {
+          regularMarketPrice,
+          regularMarketDayHigh,
+          fiftyTwoWeekHigh,
+          regularMarketVolume,
+          regularMarketChange,
+          regularMarketChangePercent,
+          marketState,
+          marketCap,
+          postMarketChange,
+          postMarketChangePercent,
+          postMarketPrice,
+        } = obj;
+
         this.setState({ stockPrice: regularMarketPrice });
         this.setState({ marketDayHigh: regularMarketDayHigh });
         this.setState({ fiftyTwoWeekHigh: fiftyTwoWeekHigh });
         this.setState({ regularMarketVolume: regularMarketVolume });
         this.setState({ regularMarketChange: regularMarketChange });
-        this.setState({ regularMarketChangePercent: regularMarketChangePercent, 
-          marketState: marketState, marketCap: marketCap, postMarketChange, postMarketChangePercent,postMarketPrice });
-
-
-        
+        this.setState({
+          regularMarketChangePercent: regularMarketChangePercent,
+          marketState: marketState,
+          marketCap: marketCap,
+          postMarketChange,
+          postMarketChangePercent,
+          postMarketPrice,
+        });
       });
   };
 
@@ -59,36 +80,59 @@ export default class App extends Component {
   }
 
   render() {
+    let stylePrice =
+      (parseInt(this.state.regularMarketChange) < 0 || parseInt(this.state.regularMarketChange) === -0)
+        ? marketPriceStyleNegative
+        : marketPriceStylePositive;
+
+    let stylePricePostMarket =
+    (parseInt(this.state.postMarketChange) < 0 || parseInt(this.state.postMarketChange) === -0)
+        ? marketPriceStyleNegative
+        : marketPriceStylePositive;
     return (
       <div className="App">
         <h6>TSLA</h6>
         <table width={"100%"} height={"60%"}>
           <tbody>
             <tr>
-              <th rowSpan="2"><div style={stockPriceStyle}>${this.state.stockPrice}</div></th>
-              <td><div style={stockStatsStyle}>{this.state.regularMarketChangePercent}%</div></td>
+              <th rowSpan="2">
+                <div style={stockPriceStyle}>${this.state.stockPrice}</div>
+              </th>
+              <td>
+                <div style={stockStatsStyle}>
+                  {this.state.regularMarketChangePercent}%
+                </div>
+              </td>
             </tr>
             <tr>
-             <td><div style={stockStatsStyle}>${this.state.regularMarketChange}</div></td>
+              <td>
+                <div style={stockStatsStyle}>
+                  ${this.state.regularMarketChange}
+                </div>
+              </td>
             </tr>
           </tbody>
         </table>
-        
-        <p>Market Day High: {this.state.marketDayHigh} 52 Week High: {this.state.fiftyTwoWeekHigh} Volume: {this.state.regularMarketVolume} MarketCap: {this.state.marketCap}</p>
-      
-        <p>Market is {this.state.marketState}</p>
-        {this.state.marketState === 'OPEN'? null : 
-        
-        <div>
-    <p>  
-    Post Market Price: {this.state.postMarketPrice}
-          Post Market Change:{this.state.postMarketChange}
-          Post Market Change Percent:{this.state.postMarketChangePercent}
-    </p>
-          
 
-        </div>
-        }
+        <p>
+          Market Day High: {this.state.marketDayHigh} 52 Week High:{" "}
+          {this.state.fiftyTwoWeekHigh} Volume: {this.state.regularMarketVolume}{" "}
+          MarketCap: {this.state.marketCap}
+        </p>
+
+        <p>Market is {this.state.marketState}</p>
+        {this.state.marketState === "OPEN" ? null : (
+          <div>
+            <p>
+              Post Market:{" "}
+              
+                <h3 style={stylePricePostMarket}>${this.state.postMarketPrice} </h3>{" "}
+              
+              ${this.state.postMarketChange}{" "}
+              {this.state.postMarketChangePercent}%
+            </p>
+          </div>
+        )}
       </div>
     );
   }
