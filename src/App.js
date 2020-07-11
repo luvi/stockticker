@@ -33,15 +33,26 @@ export default class App extends Component {
   
   componentDidMount(){
 
-    setInterval(this.update.bind(this), 3000);
+    setInterval(this.update.bind(this), 10000);
     
   }
 
   render(){
   return (
     <div className="App">
+      <table>
+        <td>
+          <tr><h1>{this.state.stockPrice}</h1></tr>
+        </td>
+        <td>
+          69%
+        </td>
+        <td>
+         +$420
+        </td>
+      </table>
       <h1>TSLA Stock Price</h1>
-      <h2>{this.state.stockPrice}</h2>
+      <h1>{this.state.stockPrice}</h1>
       <p>Market Day High: {this.state.marketDayHigh}</p>
       <p>52 Week High: {this.state.fiftyTwoWeekHigh}</p>
       <p>Volume: {this.state.regularMarketVolume}</p>
