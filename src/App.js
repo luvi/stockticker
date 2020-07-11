@@ -43,38 +43,37 @@ export default class App extends Component {
       .then((response) => {
         return response.text();
       }).then((data) => {
-        console.log(data)
+       
+        let obj = data.quoteResponse.result[0];
+        console.log(obj);
 
-        // let obj = data.quoteResponse.result[0];
-        // console.log(obj);
+        let {
+          regularMarketPrice,
+          regularMarketDayHigh,
+          fiftyTwoWeekHigh,
+          regularMarketVolume,
+          regularMarketChange,
+          regularMarketChangePercent,
+          marketState,
+          marketCap,
+          postMarketChange,
+          postMarketChangePercent,
+          postMarketPrice,
+        } = obj;
 
-        // let {
-        //   regularMarketPrice,
-        //   regularMarketDayHigh,
-        //   fiftyTwoWeekHigh,
-        //   regularMarketVolume,
-        //   regularMarketChange,
-        //   regularMarketChangePercent,
-        //   marketState,
-        //   marketCap,
-        //   postMarketChange,
-        //   postMarketChangePercent,
-        //   postMarketPrice,
-        // } = obj;
-
-        // this.setState({ stockPrice: regularMarketPrice });
-        // this.setState({ marketDayHigh: regularMarketDayHigh });
-        // this.setState({ fiftyTwoWeekHigh: fiftyTwoWeekHigh });
-        // this.setState({ regularMarketVolume: regularMarketVolume });
-        // this.setState({ regularMarketChange: regularMarketChange });
-        // this.setState({
-        //   regularMarketChangePercent: regularMarketChangePercent,
-        //   marketState: marketState,
-        //   marketCap: marketCap,
-        //   postMarketChange,
-        //   postMarketChangePercent,
-        //   postMarketPrice,
-        // });
+        this.setState({ stockPrice: regularMarketPrice });
+        this.setState({ marketDayHigh: regularMarketDayHigh });
+        this.setState({ fiftyTwoWeekHigh: fiftyTwoWeekHigh });
+        this.setState({ regularMarketVolume: regularMarketVolume });
+        this.setState({ regularMarketChange: regularMarketChange });
+        this.setState({
+          regularMarketChangePercent: regularMarketChangePercent,
+          marketState: marketState,
+          marketCap: marketCap,
+          postMarketChange,
+          postMarketChangePercent,
+          postMarketPrice,
+        });
       });
   };
 
