@@ -81,10 +81,10 @@ export default class App extends Component {
   }
 
   render() {
-    let stylePrice =
-      (parseInt(this.state.regularMarketChange) < 0 || parseInt(this.state.regularMarketChange) === -0)
-        ? marketPriceStyleNegative
-        : marketPriceStylePositive;
+    // let stylePrice =
+    //   (parseInt(this.state.regularMarketChange) < 0 || parseInt(this.state.regularMarketChange) === -0)
+    //     ? marketPriceStyleNegative
+    //     : marketPriceStylePositive;
 
     let stylePricePostMarket =
     (parseInt(this.state.postMarketChange) < 0 || parseInt(this.state.postMarketChange) === -0)
