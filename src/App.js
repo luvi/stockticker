@@ -1,62 +1,95 @@
 import React, { Component } from "react";
-import './App.css';
+import "./App.css";
 
 let STOCK = "TSLA";
-var url = `https://query1.finance.yahoo.com/v7/finance/quote?lang=en-US&region=US&corsDomain=finance.yahoo.com&symbols=${STOCK}`;
+var url = `/v7/finance/quote?lang=en-US&region=US&corsDomain=finance.yahoo.com&symbols=${STOCK}`;
+
+const stockPriceStyle = {
+  fontSize: "200px"
+}
+const stockStatsStyle = {
+  fontSize: "20px"
+}
 
 export default class App extends Component {
-
   constructor(props) {
     super(props);
-    this.state = { 
+    this.state = {
       stockPrice: 0,
       marketDayHigh: 0,
       fiftyTwoWeekHigh: 0,
-      regularMarketVolume: 0
-    }
+      regularMarketVolume: 0,
+      regularMarketChange: 420,
+      regularMarketChangePercent: 69,
+      marketState: "",
+      marketCap: 0,
+      postMarketChange: 0,
+      postMarketChangePercent: 0,
+      postMarketPrice: 0
+    };
   }
 
   update = () => {
-    fetch('https://cors-anywhere.herokuapp.com/'+url)
-      .then((response) => response.json())
+    fetch(url)
+      .then((response) => {
+        return response.json();
+      })
       .then((data) => {
+        let obj = data.quoteResponse.result[0];
+        console.log(obj);
 
-        let obj = data.quoteResponse.result[0]
-        this.setState({stockPrice: obj.regularMarketPrice})
-        this.setState({marketDayHigh: obj.regularMarketDayHigh})
-        this.setState({fiftyTwoWeekHigh: obj.fiftyTwoWeekHigh})
-        this.setState({regularMarketVolume: obj.regularMarketVolume})
-   
+        let {regularMarketPrice,regularMarketDayHigh, fiftyTwoWeekHigh,
+          regularMarketVolume,regularMarketChange,regularMarketChangePercent, marketState, marketCap,postMarketChange,postMarketChangePercent,postMarketPrice } = obj;
+        
+        this.setState({ stockPrice: regularMarketPrice });
+        this.setState({ marketDayHigh: regularMarketDayHigh });
+        this.setState({ fiftyTwoWeekHigh: fiftyTwoWeekHigh });
+        this.setState({ regularMarketVolume: regularMarketVolume });
+        this.setState({ regularMarketChange: regularMarketChange });
+        this.setState({ regularMarketChangePercent: regularMarketChangePercent, 
+          marketState: marketState, marketCap: marketCap, postMarketChange, postMarketChangePercent,postMarketPrice });
+
+
+        
       });
+  };
 
-  }
-  
-  componentDidMount(){
-
+  componentDidMount() {
     setInterval(this.update.bind(this), 10000);
-    
   }
 
-  render(){
-  return (
-    <div className="App">
-      <table>
-        <td>
-          <tr><h1>{this.state.stockPrice}</h1></tr>
-        </td>
-        <td>
-          69%
-        </td>
-        <td>
-         +$420
-        </td>
-      </table>
-      <h1>TSLA Stock Price</h1>
-      <h1>{this.state.stockPrice}</h1>
-      <p>Market Day High: {this.state.marketDayHigh}</p>
-      <p>52 Week High: {this.state.fiftyTwoWeekHigh}</p>
-      <p>Volume: {this.state.regularMarketVolume}</p>
-    </div>
-  );
+  render() {
+    return (
+      <div className="App">
+        <h6>TSLA</h6>
+        <table width={"100%"} height={"60%"}>
+          <tbody>
+            <tr>
+              <th rowSpan="2"><div style={stockPriceStyle}>${this.state.stockPrice}</div></th>
+              <td><div style={stockStatsStyle}>{this.state.regularMarketChangePercent}%</div></td>
+            </tr>
+            <tr>
+             <td><div style={stockStatsStyle}>${this.state.regularMarketChange}</div></td>
+            </tr>
+          </tbody>
+        </table>
+        
+        <p>Market Day High: {this.state.marketDayHigh} 52 Week High: {this.state.fiftyTwoWeekHigh} Volume: {this.state.regularMarketVolume} MarketCap: {this.state.marketCap}</p>
+      
+        <p>Market is {this.state.marketState}</p>
+        {this.state.marketState === 'OPEN'? null : 
+        
+        <div>
+    <p>  
+    Post Market Price: {this.state.postMarketPrice}
+          Post Market Change:{this.state.postMarketChange}
+          Post Market Change Percent:{this.state.postMarketChangePercent}
+    </p>
+          
+
+        </div>
+        }
+      </div>
+    );
   }
 }
