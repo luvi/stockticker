@@ -1,4 +1,0 @@
-# a path:
-https://query1.finance.yahoo.com/
-  # headers for that path:
-  Access-Control-Allow-Origin: *
