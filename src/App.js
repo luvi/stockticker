@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 
 let STOCK = "TSLA";
-var url = `https://query1.finance.yahoo.com/v7/finance/quote?lang=en-US&region=US&corsDomain=finance.yahoo.com&symbols=${STOCK}`;
+var url = `/v7/finance/quote?lang=en-US&region=US&corsDomain=finance.yahoo.com&symbols=${STOCK}`;
 
 const stockPriceStyle = {
   fontSize: "200px",
