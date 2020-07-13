@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
-import milify from 'millify';
-
+import milify from "millify";
 
 let STOCK = "TSLA";
 var url = `/v7/finance/quote?lang=en-US&region=US&corsDomain=finance.yahoo.com&symbols=${STOCK}`;
@@ -20,6 +19,10 @@ const marketPriceStyleNegative = {
   color: "red",
 };
 
+let stylePricePostMarket = {
+
+}
+
 export default class App extends Component {
   constructor(props) {
     super(props);
@@ -35,16 +38,18 @@ export default class App extends Component {
       postMarketChange: 0,
       postMarketChangePercent: 0,
       postMarketPrice: 0,
+      preMarketChange: 0 ,
+          preMarketChangePercent:0 ,
+          preMarketPrice:0 ,
     };
   }
-
 
   update = () => {
     fetch(url)
       .then((response) => {
         return response.json();
-      }).then((data) => {
-       
+      })
+      .then((data) => {
         let obj = data.quoteResponse.result[0];
         console.log(obj);
 
@@ -60,20 +65,25 @@ export default class App extends Component {
           postMarketChange,
           postMarketChangePercent,
           postMarketPrice,
+          preMarketChange,
+          preMarketChangePercent,
+          preMarketPrice,
         } = obj;
 
-        this.setState({ stockPrice: regularMarketPrice });
-        this.setState({ marketDayHigh: regularMarketDayHigh });
-        this.setState({ fiftyTwoWeekHigh: fiftyTwoWeekHigh });
-        this.setState({ regularMarketVolume: regularMarketVolume });
-        this.setState({ regularMarketChange: regularMarketChange });
         this.setState({
-          regularMarketChangePercent: regularMarketChangePercent,
-          marketState: marketState,
-          marketCap: marketCap,
+          stockPrice: regularMarketPrice,
+          marketDayHigh: regularMarketDayHigh,
+          fiftyTwoWeekHigh,
+          regularMarketVolume,
+          regularMarketChange,
+          regularMarketChangePercent,
+          marketState,
+          marketCap,
           postMarketChange,
           postMarketChangePercent,
-          postMarketPrice,
+          postMarketPrice,preMarketChange,
+          preMarketChangePercent,
+          preMarketPrice,
         });
       });
   };
@@ -81,10 +91,8 @@ export default class App extends Component {
   timer = 10000;
 
   componentDidMount() {
-
-    this.update() // update immediately once open
+    this.update(); // update immediately once open
     setInterval(this.update.bind(this), this.timer);
-
   }
 
   render() {
@@ -92,11 +100,14 @@ export default class App extends Component {
     //   (parseInt(this.state.regularMarketChange) < 0 || parseInt(this.state.regularMarketChange) === -0)
     //     ? marketPriceStyleNegative
     //     : marketPriceStylePositive;
-
-    let stylePricePostMarket =
-    (parseInt(this.state.postMarketChange) < 0 || parseInt(this.state.postMarketChange) === -0)
+    let postMarketChangeInt = parseInt(this.state.postMarketChange);
+    if (postMarketChangeInt !== undefined) {
+    stylePricePostMarket =
+      postMarketChangeInt < 0 ||
+      postMarketChangeInt === -0
         ? marketPriceStyleNegative
         : marketPriceStylePositive;
+    }
     return (
       <div className="App">
         <h6>TSLA</h6>
@@ -124,23 +135,42 @@ export default class App extends Component {
 
         <p>
           Market Day High: {this.state.marketDayHigh.toFixed(2)} 52 Week High:{" "}
-          {this.state.fiftyTwoWeekHigh} Volume: {milify(this.state.regularMarketVolume)}{" "}
-          MarketCap: {milify(this.state.marketCap)}
+          {this.state.fiftyTwoWeekHigh} Volume:{" "}
+          {milify(this.state.regularMarketVolume)} MarketCap:{" "}
+          {milify(this.state.marketCap)}
         </p>
 
+
+
+        
+
+
         <p>Market is {this.state.marketState}</p>
-        {this.state.marketState === "OPEN" ? null : (
+        {this.state.marketState === "POST" ? (
           <div>
             <p>
               Post Market:{" "}
-              
-                <h3 style={stylePricePostMarket}>${this.state.postMarketPrice} </h3>{" "}
-              
-              ${this.state.postMarketChange.toFixed(2)}{" "}
-              {this.state.postMarketChangePercent.toFixed(2)}%
+              <h3 style={stylePricePostMarket}>
+                ${this.state.postMarketPrice}{" "}
+              </h3>{" "}
+              ${this.state.postMarketChange !== undefined ? this.state.postMarketChange.toFixed(2) :null }{" "}
+              {this.state.postMarketChangePercent !== undefined ? this.state.postMarketChangePercent.toFixed(2) :null}%
             </p>
           </div>
-        )}
+        ): null }
+
+{this.state.marketState === "PRE" ? (
+          <div>
+            <p>
+              Pre Market:{" "}
+              <h3 style={stylePricePostMarket}>
+                ${this.state.preMarketPrice}{" "}
+              </h3>{" "}
+              ${this.state.preMarketChange !== undefined ? this.state.preMarketChange.toFixed(2) :null }{" "}
+              {this.state.preMarketChangePercent !== undefined ? this.state.preMarketChangePercent.toFixed(2) :null}%
+            </p>
+          </div>
+        ): null }
       </div>
     );
   }
