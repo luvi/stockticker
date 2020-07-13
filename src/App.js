@@ -6,7 +6,7 @@ let STOCK = "TSLA";
 var url = `/v7/finance/quote?lang=en-US&region=US&corsDomain=finance.yahoo.com&symbols=${STOCK}`;
 
 const stockPriceStylePositive = {
-  fontSize: "200px",color: "green"
+  fontSize: "200px",color: "#0dbf3c"
 };
 
 const stockPriceStyleNegative = {
@@ -18,7 +18,7 @@ const stockStatsStyle = {
   fontSize: "20px",
 };
 const marketPriceStylePositive = {
-  color: "green",
+  color: "#0dbf3c",
 };
 
 const marketPriceStyleNegative = {
