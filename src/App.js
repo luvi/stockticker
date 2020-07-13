@@ -115,7 +115,7 @@ export default class App extends Component {
           <tbody>
             <tr>
               <th rowSpan="2">
-                <div style={stockPriceStyle}>${this.state.stockPrice}</div>
+                <div style={stockPriceStyle}>${this.state.stockPrice.toFixed(2)}</div>
               </th>
               <td>
                 <div style={stockStatsStyle}>
@@ -126,7 +126,7 @@ export default class App extends Component {
             <tr>
               <td>
                 <div style={stockStatsStyle}>
-                  ${this.state.regularMarketChange}
+                  ${this.state.regularMarketChange.toFixed(2)}
                 </div>
               </td>
             </tr>
@@ -145,7 +145,7 @@ export default class App extends Component {
         
 
 
-        <p>Market is {this.state.marketState}</p>
+        <p>{this.state.marketState} Market</p>
         {this.state.marketState === "POST" ? (
           <div>
             <p>
@@ -164,7 +164,7 @@ export default class App extends Component {
             <p>
               Pre Market:{" "}
               <h3 style={stylePricePostMarket}>
-                ${this.state.preMarketPrice}{" "}
+                ${this.state.preMarketPrice.toFixed(2)}{" "}
               </h3>{" "}
               ${this.state.preMarketChange !== undefined ? this.state.preMarketChange.toFixed(2) :null }{" "}
               {this.state.preMarketChangePercent !== undefined ? this.state.preMarketChangePercent.toFixed(2) :null}%
