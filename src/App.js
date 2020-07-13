@@ -109,13 +109,14 @@ export default class App extends Component {
         : marketPriceStylePositive;
     }
     return (
-      <div className="App">
+      <div className="App" >
         <h6>TSLA</h6>
-        <table width={"100%"} height={"60%"}>
+        <div style={{width:"100%", display:"flex", flexDirection:"row", justifyContent:"center", borderRadius:"1", borderColor:"red"}}>
+        <table width={"60%"} height={"60%"} style={{justifySelf:"center",alignItems:"center", alignSelf:"center"}}>
           <tbody>
             <tr>
               <th rowSpan="2">
-                <div style={stockPriceStyle}>${this.state.stockPrice.toFixed(2)}</div>
+                <div style={stockPriceStyle}>{this.state.stockPrice.toFixed(2)}</div>
               </th>
               <td>
                 <div style={stockStatsStyle}>
@@ -132,18 +133,14 @@ export default class App extends Component {
             </tr>
           </tbody>
         </table>
+        </div>
 
         <p>
           Market Day High: {this.state.marketDayHigh.toFixed(2)} 52 Week High:{" "}
           {this.state.fiftyTwoWeekHigh} Volume:{" "}
-          {milify(this.state.regularMarketVolume)} MarketCap:{" "}
+          {milify(this.state.regularMarketVolume)} Market Cap:{" "}
           {milify(this.state.marketCap)}
         </p>
-
-
-
-        
-
 
         <p>{this.state.marketState} Market</p>
         {this.state.marketState === "POST" ? (
