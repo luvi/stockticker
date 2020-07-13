@@ -5,9 +5,15 @@ import milify from "millify";
 let STOCK = "TSLA";
 var url = `/v7/finance/quote?lang=en-US&region=US&corsDomain=finance.yahoo.com&symbols=${STOCK}`;
 
-const stockPriceStyle = {
-  fontSize: "200px",
+const stockPriceStylePositive = {
+  fontSize: "200px",color: "green"
 };
+
+const stockPriceStyleNegative = {
+  fontSize: "200px",color: "red"
+
+}
+
 const stockStatsStyle = {
   fontSize: "20px",
 };
@@ -96,10 +102,10 @@ export default class App extends Component {
   }
 
   render() {
-    // let stylePrice =
-    //   (parseInt(this.state.regularMarketChange) < 0 || parseInt(this.state.regularMarketChange) === -0)
-    //     ? marketPriceStyleNegative
-    //     : marketPriceStylePositive;
+    let stylePrice =
+      (parseInt(this.state.regularMarketChange) < 0 || parseInt(this.state.regularMarketChange) === -0)
+        ? stockPriceStyleNegative
+        : stockPriceStylePositive;
     let postMarketChangeInt = parseInt(this.state.postMarketChange);
     if (postMarketChangeInt !== undefined) {
     stylePricePostMarket =
@@ -116,7 +122,7 @@ export default class App extends Component {
           <tbody>
             <tr>
               <th rowSpan="2">
-                <div style={stockPriceStyle}>{this.state.stockPrice.toFixed(2)}</div>
+                <div style={stylePrice}>{this.state.stockPrice.toFixed(2)}</div>
               </th>
               <td>
                 <div style={stockStatsStyle}>
