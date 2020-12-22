@@ -5,8 +5,7 @@ import {
   Jumbotron,
   Container,
   Card,
-  DropdownButton,
-  Dropdown,
+  NavDropdown,
 } from "react-bootstrap";
 import InfoCard from "./InfoCard";
 
@@ -151,11 +150,11 @@ export default class App extends Component {
     return (
       <>
         <Navbar>
-          <Navbar.Brand href="#home">Simple Stock Ticker {this.state.stock}</Navbar.Brand>
-          <DropdownButton  id="dropdown-basic-button" onSelect={this.handleChange} title="Choose">
-            <Dropdown.Item eventKey="TSLA">TSLA</Dropdown.Item>
-            <Dropdown.Item eventKey="U">U</Dropdown.Item>
-          </DropdownButton>
+          <Navbar.Brand href="#home">Clean {this.state.stock} Stock Ticker </Navbar.Brand>
+          <NavDropdown title="Choose a stock" id="basic-nav-dropdown" onSelect={this.handleChange}>
+        <NavDropdown.Item eventKey="TSLA">TSLA</NavDropdown.Item>
+        <NavDropdown.Item eventKey="U">U</NavDropdown.Item>
+      </NavDropdown>
         </Navbar>
 
         <div className="App">
