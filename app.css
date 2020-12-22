@@ -1,0 +1,20 @@
+stockPriceStylePositive  {
+    font-size: 200px;
+    color: #0dbf3c;
+  }
+  
+stockPriceStyleNegative  {
+    font-size: 200px;
+    color: red;
+  }
+
+  stockStatsStyle {
+    font-size: 20px,
+  }
+  const marketPriceStylePositive  {
+    color: #0dbf3c;
+  }
+  
+  const marketPriceStyleNegative  {
+    color: red;
+  }
