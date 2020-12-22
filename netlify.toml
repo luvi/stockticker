@@ -5,8 +5,13 @@
 # The following redirect is intended for use with most SPAs that handle
 # routing internally.
 [[redirects]]
-  from = "/v7/*"
+  from = "/finance/quote?lang=en-US&region=US&corsDomain=finance.yahoo.com&symbols=TSLA"
   to = "https://query1.finance.yahoo.com/v7/finance/quote?lang=en-US&region=US&corsDomain=finance.yahoo.com&symbols=TSLA"
+  status = 200
+
+[[redirects]]
+  from = "/finance/quote?lang=en-US&region=US&corsDomain=finance.yahoo.com&symbols=U"
+  to = "https://query1.finance.yahoo.com/v7/finance/quote?lang=en-US&region=US&corsDomain=finance.yahoo.com&symbols=U"
   status = 200
 
 [[headers]]

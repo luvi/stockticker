@@ -1,10 +1,16 @@
 import React, { Component } from "react";
 import milify from "millify";
-import { Navbar, Jumbotron, Container, Card } from "react-bootstrap";
-import InfoCard from './InfoCard'
+import {
+  Navbar,
+  Jumbotron,
+  Container,
+  Card,
+  DropdownButton,
+  Dropdown,
+} from "react-bootstrap";
+import InfoCard from "./InfoCard";
 
-let STOCK = "TSLA";
-var url = `/v7/finance/quote?lang=en-US&region=US&corsDomain=finance.yahoo.com&symbols=${STOCK}`;
+
 
 const stockPriceStylePositive = {
   fontSize: "240px",
@@ -12,7 +18,7 @@ const stockPriceStylePositive = {
   color: "#0dbf3c",
   textAlign: "center",
   background: "none",
-  padding: "0px"
+  padding: "0px",
 };
 
 const stockPriceStyleNegative = {
@@ -21,7 +27,7 @@ const stockPriceStyleNegative = {
   color: "red",
   textAlign: "center",
   background: "none",
-  padding: "0px"
+  padding: "0px",
 };
 
 const stockStatsStyle = {
@@ -36,6 +42,8 @@ const marketPriceStyleNegative = {
 };
 
 let stylePricePostMarket = {};
+
+
 
 export default class App extends Component {
   constructor(props) {
@@ -55,10 +63,18 @@ export default class App extends Component {
       preMarketChange: 0,
       preMarketChangePercent: 0,
       preMarketPrice: 0,
+      stock: "TSLA"
     };
   }
 
+
+
   update = () => {
+
+    let STOCK = this.state.stock;
+    var url = `/v7/finance/quote?lang=en-US&region=US&corsDomain=finance.yahoo.com&symbols=${STOCK}`;
+
+
     fetch(url)
       .then((response) => {
         return response.json();
@@ -105,6 +121,13 @@ export default class App extends Component {
 
   timer = 10000;
 
+  handleChange = (stock) => {
+
+    this.setState({stock: stock});
+    this.update();
+
+  }
+
   componentDidMount() {
     this.update(); // update immediately once open
     setInterval(this.update.bind(this), this.timer);
@@ -128,7 +151,11 @@ export default class App extends Component {
     return (
       <>
         <Navbar>
-          <Navbar.Brand href="#home">Simple Stock Ticker {STOCK}</Navbar.Brand>
+          <Navbar.Brand href="#home">Simple Stock Ticker {this.state.stock}</Navbar.Brand>
+          <DropdownButton  id="dropdown-basic-button" onSelect={this.handleChange} title="Choose">
+            <Dropdown.Item eventKey="TSLA">TSLA</Dropdown.Item>
+            <Dropdown.Item eventKey="U">U</Dropdown.Item>
+          </DropdownButton>
         </Navbar>
 
         <div className="App">
@@ -146,18 +173,29 @@ export default class App extends Component {
           </Jumbotron>
 
           <Card>
-            <Card.Body style={{fontWeight: "200", fontSize:"30px"}}>
-            {this.state.marketState} Market
+            <Card.Body style={{ fontWeight: "200", fontSize: "30px" }}>
+              {this.state.marketState} Market
             </Card.Body>
           </Card>
-        <div style={{display:"flex", flexDirection: "row"}}>
-          <InfoCard title={"Market Day High"} text={this.state.marketDayHigh.toFixed(2)}></InfoCard>
-          <InfoCard title={"52 Week High"} text={this.state.fiftyTwoWeekHigh}></InfoCard>
-          <InfoCard title={"Volume"} text={milify(this.state.regularMarketVolume)}></InfoCard>
-          <InfoCard title={"Market Cap"} text={milify(this.state.marketCap)}></InfoCard>
-        </div>
-         
-          
+          <div style={{ display: "flex", flexDirection: "row" }}>
+            <InfoCard
+              title={"Market Day High"}
+              text={this.state.marketDayHigh.toFixed(2)}
+            ></InfoCard>
+            <InfoCard
+              title={"52 Week High"}
+              text={this.state.fiftyTwoWeekHigh}
+            ></InfoCard>
+            <InfoCard
+              title={"Volume"}
+              text={milify(this.state.regularMarketVolume)}
+            ></InfoCard>
+            <InfoCard
+              title={"Market Cap"}
+              text={milify(this.state.marketCap)}
+            ></InfoCard>
+          </div>
+
           {this.state.marketState === "POST" ? (
             <div>
               <p>
