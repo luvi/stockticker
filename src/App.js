@@ -8,6 +8,10 @@ import {
   NavDropdown,
 } from "react-bootstrap";
 import InfoCard from "./InfoCard";
+import ReactGA from 'react-ga';
+
+ReactGA.initialize('G-E1FXSK9J7B');
+ReactGA.pageview(window.location.pathname + window.location.search);
 
 
 
