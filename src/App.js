@@ -7,13 +7,21 @@ let STOCK = "TSLA";
 var url = `/v7/finance/quote?lang=en-US&region=US&corsDomain=finance.yahoo.com&symbols=${STOCK}`;
 
 const stockPriceStylePositive = {
-  fontSize: "200px",
+  fontSize: "240px",
+  fontWeight: "200",
   color: "#0dbf3c",
+  textAlign: "center",
+  background: "none",
+  padding: "0px"
 };
 
 const stockPriceStyleNegative = {
-  fontSize: "200px",
+  fontSize: "240px",
+  fontWeight: "300",
   color: "red",
+  textAlign: "center",
+  background: "none",
+  padding: "0px"
 };
 
 const stockStatsStyle = {
@@ -120,7 +128,7 @@ export default class App extends Component {
     return (
       <>
         <Navbar>
-          <Navbar.Brand href="#home">Simple Stock Ticker</Navbar.Brand>
+          <Navbar.Brand href="#home">Simple Stock Ticker {STOCK}</Navbar.Brand>
         </Navbar>
 
         <div className="App">
@@ -138,21 +146,18 @@ export default class App extends Component {
           </Jumbotron>
 
           <Card>
-            <Card.Body>
+            <Card.Body style={{fontWeight: "200", fontSize:"30px"}}>
             {this.state.marketState} Market
             </Card.Body>
           </Card>
-
-          <InfoCard title={"Market Day High:"} text={this.state.marketDayHigh.toFixed(2)}></InfoCard>
-          <InfoCard title={"52 Week High: "} text={this.state.fiftyTwoWeekHigh}></InfoCard>
-          <InfoCard title={"Volume:"} text={milify(this.state.regularMarketVolume)}></InfoCard>
-          <InfoCard title={"Market Cap: "} text={milify(this.state.marketCap)}></InfoCard>
-
-
+        <div style={{display:"flex", flexDirection: "row"}}>
+          <InfoCard title={"Market Day High"} text={this.state.marketDayHigh.toFixed(2)}></InfoCard>
+          <InfoCard title={"52 Week High"} text={this.state.fiftyTwoWeekHigh}></InfoCard>
+          <InfoCard title={"Volume"} text={milify(this.state.regularMarketVolume)}></InfoCard>
+          <InfoCard title={"Market Cap"} text={milify(this.state.marketCap)}></InfoCard>
+        </div>
          
           
-
-
           {this.state.marketState === "POST" ? (
             <div>
               <p>
