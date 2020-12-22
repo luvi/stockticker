@@ -1,3 +1,2 @@
-/v7/*  https://query1.finance.yahoo.com/v7/:splat  200
 /v7/finance/quote?lang=en-US&region=US&corsDomain=finance.yahoo.com&symbols=TSLA https://query1.finance.yahoo.com/v7/finance/quote?lang=en-US&region=US&corsDomain=finance.yahoo.com&symbols=TSLA  200
 /v7/finance/quote?lang=en-US&region=US&corsDomain=finance.yahoo.com&symbols=U https://query1.finance.yahoo.com/v7/finance/quote?lang=en-US&region=US&corsDomain=finance.yahoo.com&symbols=U  200
