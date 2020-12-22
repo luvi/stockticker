@@ -10,8 +10,8 @@
   status = 200
 
 [[redirects]]
-  from = "/v7/finance/quote?lang=en-US&region=US&corsDomain=finance.yahoo.com&symbols=TSLA"
-  to = "https://query1.finance.yahoo.com/v7/finance/quote?lang=en-US&region=US&corsDomain=finance.yahoo.com&symbols=TSLA"
+  from = "/v7/finance/quote?lang=en-US&region=US&corsDomain=finance.yahoo.com&symbols=U"
+  to = "https://query1.finance.yahoo.com/v7/finance/quote?lang=en-US&region=US&corsDomain=finance.yahoo.com&symbols=U"
   status = 200
 
 [[headers]]
