@@ -80,6 +80,8 @@ export default class App extends Component {
     fetch(url)
       .then((response) => {
         return response.json();
+      }).catch((error)=>{
+        console.warn(error)
       })
       .then((data) => {
         let obj = data.quoteResponse.result[0];
@@ -158,7 +160,7 @@ export default class App extends Component {
         <NavDropdown.Item eventKey="TSLA">TSLA</NavDropdown.Item>
         <NavDropdown.Item eventKey="U">U</NavDropdown.Item>
         <NavDropdown.Item eventKey="BTC-USD">BTC-USD</NavDropdown.Item>
-        <NavDropdown.Item eventKey="BTC-EUR">BTC-EUR</NavDropdown.Item>
+        <NavDropdown.Item eventKey="ETH-USD">ETH-USD</NavDropdown.Item>
       </NavDropdown>
         </Navbar>
 
