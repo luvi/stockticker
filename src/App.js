@@ -9,7 +9,6 @@ import {
 } from "react-bootstrap";
 import InfoCard from "./InfoCard";
 import ReactGA from 'react-ga';
-
 ReactGA.initialize('G-E1FXSK9J7B');
 ReactGA.pageview(window.location.pathname + window.location.search);
 
@@ -158,6 +157,8 @@ export default class App extends Component {
           <NavDropdown title="Choose a stock" id="basic-nav-dropdown" onSelect={this.handleChange}>
         <NavDropdown.Item eventKey="TSLA">TSLA</NavDropdown.Item>
         <NavDropdown.Item eventKey="U">U</NavDropdown.Item>
+        <NavDropdown.Item eventKey="BTC-USD">BTC-USD</NavDropdown.Item>
+        <NavDropdown.Item eventKey="BTC-EUR">BTC-EUR</NavDropdown.Item>
       </NavDropdown>
         </Navbar>
 
